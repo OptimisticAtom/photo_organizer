@@ -3,6 +3,7 @@ import os, shutil, time
 cwd = os.getcwd()
 new_mem_dir = "/New_Memories/"
 old_mem_dir = "/Old_Memories/"
+day_dir_thresh = 9
 print(cwd)
 
 
@@ -40,7 +41,7 @@ def new_date_dirs(dates, path):
             y_path += '/'
             dates2 = create_date_dict(y_path)
             if dates2.get(date) != None:
-                if len(dates[date]) + len(dates2[date]) > 9:
+                if len(dates[date]) + len(dates2[date]) > day_dir_thresh:
                     print("creating date dir {} and merging new and old dates for it".format(date))
                     dates[date] += dates2[date]
                     make_dir = y_path + date
@@ -70,7 +71,7 @@ def move_files(dates, src):
         if os.path.isdir(date_dir):
             dest = date_dir + '/'
             print("dest: " + dest)
-        elif len(files) > 9:
+        elif len(files) > day_dir_thresh:
             # date_dir.append(date)
             print("create dir " + date)
             os.mkdir(date_dir)
